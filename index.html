@@ -7,7 +7,7 @@
     <!-- Tailwind CSS & FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- PapaParse para procesar Google Sheets -->
+    <!-- PapaParse para procesar el CSV local -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
@@ -47,7 +47,7 @@
         <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <div class="col-span-full text-center py-12 text-gray-400">
                 <i class="fa-solid fa-spinner fa-spin text-3xl mb-3"></i>
-                <p>Cargando productos en vivo...</p>
+                <p>Cargando catálogo...</p>
             </div>
         </div>
     </main>
@@ -79,19 +79,15 @@
 
     <!-- Script de la Aplicación -->
     <script>
-        // PEGA AQUÍ EL ENLACE QUE COPIASTE DE GOOGLE SHEETS
-        const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQtK0uwj_Xbym1VLzQFpt0cKhR124rXQCJz4K5xfZrL_Y46oyynB6mgiFUq5fvMuElDckbZ-sVlqpxG/pub?output=csv";
-
         let products = [];
         let cart = {};
 
-        function loadProductsFromGoogleSheets() {
-            PapaParse.parse(GOOGLE_SHEETS_CSV_URL, {
+        function loadLocalCSV() {
+            PapaParse.parse('productos.csv', {
                 download: true,
                 header: true,
                 skipEmptyLines: true,
                 complete: function(results) {
-                    // Mapear los nombres de tus columnas (codigo, nombre, categoria, precio, imagen)
                     products = results.data.map(row => ({
                         id: row.codigo ? String(row.codigo).trim() : Date.now(),
                         name: row.nombre ? row.nombre.trim() : '',
@@ -100,17 +96,17 @@
                         image: row.imagen ? row.imagen.trim() : ''
                     }));
 
-                    // Invertir para que los últimos agregados salgan de primero en la página
+                    // Invertir para mostrar primero los últimos de la lista
                     products.reverse();
 
                     initCategories();
                     renderProducts(products);
                 },
                 error: function(err) {
-                    console.error("Error al cargar la hoja de Google Sheets:", err);
+                    console.error("Error al cargar productos.csv local:", err);
                     document.getElementById('product-grid').innerHTML = `
                         <div class="col-span-full text-center py-12 text-red-500">
-                            Error al cargar la lista de productos. Verifica el enlace de Google Sheets.
+                            No se encontró el archivo productos.csv en el servidor.
                         </div>`;
                 }
             });
@@ -265,12 +261,12 @@
 
             message += `\n*Total a pagar: $${total.toFixed(2)}*\n\n¡Quedo atento a la confirmación!`;
 
-            const phoneNumber = "17869303823"; // Pon aquí tu número de WhatsApp
+            const phoneNumber = "584120000000";
             const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');
         }
 
-        document.addEventListener('DOMContentLoaded', loadProductsFromGoogleSheets);
+        document.addEventListener('DOMContentLoaded', loadLocalCSV);
     </script>
 </body>
 </html>
