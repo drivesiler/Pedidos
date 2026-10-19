@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        <!-- Grid de Productos Optimizada para Móviles (2 por fila = 4 visibles en pantalla) -->
+        <!-- Grid de Productos (2 por fila en móvil) -->
         <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
             <!-- Carga Dinámica -->
         </div>
@@ -157,16 +157,10 @@
 
     <!-- Script Principal JavaScript -->
     <script>
-        /* ==========================================================================
-           CONFIGURACIÓN DE CONTACTO (EDITA AQUÍ TU TELÉFONO Y CORREO)
-           ========================================================================== */
-        const CONFIG_WHATSAPP_PHONE = "584120000000"; // Número en formato internacional sin espacios ni '+'
-        const CONFIG_EMAIL_ADDRESS  = "ventas@perfumeriakanam.com"; // Tu correo para recibir pedidos
-        const ADMIN_PASS            = "kanam2026"; // Contraseña del panel de administración
+        const CONFIG_WHATSAPP_PHONE = "584120000000"; 
+        const CONFIG_EMAIL_ADDRESS  = "ventas@perfumeriakanam.com"; 
+        const ADMIN_PASS            = "kanam2026"; 
 
-        /* ==========================================================================
-           CATÁLOGO DE PRODUCTOS ORIGINAL
-           ========================================================================== */
         const defaultProducts = [
             { id: "100536", name: "Freeze Cranby", price: 21.0, category: "Assala", image: "https://perfumeriakanam.com/wp-content/uploads/2026/10/71824_perfume-assala-prime-freeze-cranby-eau-de-parfum_z1_639155845222252786-300x300.webp" },
             { id: "100535", name: "Freeze Berry", price: 21.0, category: "Assala", image: "https://perfumeriakanam.com/wp-content/uploads/2026/10/71887_assala-freeze-berry-eau-de-parfum-85ml_l1_639155852177245848-300x300.webp" },
@@ -179,119 +173,21 @@
             { id: "100528", name: "Muse", price: 37.75, category: "Khadlaj", image: "https://perfumeriakanam.com/wp-content/uploads/2026/10/images-28-300x300.jpeg" },
             { id: "100527", name: "Panache Angel Dust", price: 37.5, category: "Khadlaj", image: "https://perfumeriakanam.com/wp-content/uploads/2026/10/2F914145-B82F-4823-81AA-067A2FC6E5A5-540x540.jpg" },
             { id: "100526", name: "Hawas Boa", price: 45.5, category: "Rasasi", image: "https://perfumeriakanam.com/wp-content/uploads/2026/10/Gemini_Generated_Image_lnlnmqlnlnmqlnln-300x300.jpg" },
-            { id: "100525", name: "Club de Nuit Intenso Fuego", price: 45.5, category: "Armaf", image: "https://perfumeriakanam.com/wp-content/uploads/2026/10/images-27-242x300.jpeg" },
-            { id: "100524", name: "Bade'e Al Oud Amethyst Fusion", price: 35.5, category: "Lattafa", image: "https://perfumeriakanam.com/wp-content/uploads/2026/09/images-21-239x300.jpeg" },
-            { id: "100523", name: "Bade'e Al Oud Black Exposed", price: 38.0, category: "Lattafa", image: "https://perfumeriakanam.com/wp-content/uploads/2026/09/images-20-239x300.jpeg" },
-            { id: "100522", name: "Hawas Nautilus", price: 35.95, category: "Rasasi", image: "https://perfumeriakanam.com/wp-content/uploads/2026/09/images-17-300x300.jpeg" },
-            { id: "100521", name: "Hawas Majestic", price: 35.95, category: "Rasasi", image: "https://perfumeriakanam.com/wp-content/uploads/2026/09/rasasi-hawas-majestic-notas-300x300.webp" },
-            { id: "100520", name: "Terra", price: 29.95, category: "Rayhaan", image: "https://perfumeriakanam.com/wp-content/uploads/2026/09/3Terra-300x300.jpg" },
-            { id: "100519", name: "Pacific Aura", price: 28.5, category: "Rayhaan", image: "https://perfumeriakanam.com/wp-content/uploads/2026/09/51ILZsXjLxL._AC_UF350350_QL80_-300x300.jpg" },
-            { id: "100518", name: "Obsidian", price: 29.95, category: "Rayhaan", image: "https://perfumeriakanam.com/wp-content/uploads/2026/09/images-16-261x300.jpeg" },
-            { id: "100517", name: "Lion", price: 29.95, category: "Rayhaan", image: "https://perfumeriakanam.com/wp-content/uploads/2026/09/RAYHAANLION_10-300x300.png" },
-            { id: "100516", name: "Italia", price: 29.95, category: "Rayhaan", image: "https://perfumeriakanam.com/wp-content/uploads/2026/09/Italia-300x300.jpg" },
-            { id: "100515", name: "Imperia", price: 18.5, category: "Rayhaan", image: "https://perfumeriakanam.com/wp-content/uploads/2026/09/Imperia-Aromatica-CR-453879825-300x300.jpeg" },
-            { id: "100514", name: "Azul", price: 29.5, category: "Rayhaan", image: "https://perfumeriakanam.com/wp-content/uploads/2026/09/Azul_Rayhaan_Notas-300x300.png" },
-            { id: "100513", name: "Narissa Ambre", price: 14.5, category: "Maison Alhambra", image: "https://perfumeriakanam.com/wp-content/uploads/2026/09/D_NQ_NP_968723-MLV92146447539_092025-O-300x210.webp" },
-            { id: "100512", name: "Glossy", price: 15.5, category: "Maison Alhambra", image: "https://perfumeriakanam.com/wp-content/uploads/2026/09/8147XCCcqYL-300x300.jpg" },
-            { id: "100511", name: "Casablanca", price: 29.95, category: "Swiss Arabian", image: "https://perfumeriakanam.com/wp-content/uploads/2026/09/Casablanca-300x300.jpeg" },
-            { id: "100510", name: "Club De Nuit Elite", price: 39.95, category: "Armaf", image: "https://perfumeriakanam.com/wp-content/uploads/2026/09/fit.156577.jpg" },
-            { id: "100509", name: "Infusion", price: 24.5, category: "Armaf", image: "https://perfumeriakanam.com/wp-content/uploads/2026/09/Promo_e429e8c8-3830-4337-a8ce-ce7d7e1c9172-300x300.jpg" },
-            { id: "100508", name: "Rome Lucky", price: 26.5, category: "Bharara", image: "https://perfumeriakanam.com/wp-content/uploads/2026/09/MastPerfumeRomeLucky-1-1-540x540.jpg" },
-            { id: "100507", name: "Hawas Chrome", price: 35.5, category: "Rasasi", image: "https://perfumeriakanam.com/wp-content/uploads/2026/09/1500-300x300.webp" },
-            { id: "100506", name: "Ravine Ginger", price: 35.5, category: "French Avenue", image: "https://perfumeriakanam.com/wp-content/uploads/2026/08/ravine-ginger-by-french-avenue-unisex-perfume-edp-100-ml-french-avenue-310788-1224352823_2048x-300x300.jpg" },
-            { id: "100505", name: "Ravine Ice", price: 35.5, category: "French Avenue", image: "https://perfumeriakanam.com/wp-content/uploads/2026/08/ravine-ice-edp-100ml-french-avenue-6522173-300x300.jpeg" },
-            { id: "100504", name: "Ana Abiyedh Passion", price: 23.5, category: "Lattafa", image: "https://perfumeriakanam.com/wp-content/uploads/2026/08/Picsart_26-08-31_18-38-24-443-300x300.jpg" },
-            { id: "100503", name: "Revolt Uncaged", price: 34.5, category: "Arabiyat Prestige", image: "https://perfumeriakanam.com/wp-content/uploads/2026/08/28676_Image1-300x300.jpg" },
-            { id: "100502", name: "Aristo", price: 34.5, category: "Arabiyat Prestige", image: "https://perfumeriakanam.com/wp-content/uploads/2026/08/soghaat-aristo-eau-de-parfum-gold-bottle-a1b2c3d4_d3bdea3b-6341-4ffd-99a9-793a27f9871c-300x300.jpg" },
-            { id: "100501", name: "Marasi for Women (purple box) EDP", price: 35.5, category: "Arabiyat Prestige", image: "https://perfumeriakanam.com/wp-content/uploads/2026/08/IMG-0391-540x540.jpg" },
-            { id: "100500", name: "Spectre Ghos", price: 31.5, category: "French Avenue", image: "https://perfumeriakanam.com/wp-content/uploads/2026/08/Spectre-Ghost-Aromatica-CR-457587232-300x300.jpg" },
-            { id: "100499", name: "Pharaoh", price: 28.5, category: "Rayhaan", image: "https://perfumeriakanam.com/wp-content/uploads/2026/08/pharaoh-eau-de-parfum-rayhaan-300x300.jpg" },
-            { id: "100498", name: "Odyssey Soda Pop", price: 26.5, category: "Armaf", image: "https://perfumeriakanam.com/wp-content/uploads/2026/08/71hd8V9gzSL._AC_UF350350_QL80_-300x289.jpg" },
-            { id: "100497", name: "Odyssey Nexus", price: 33.95, category: "Armaf", image: "https://perfumeriakanam.com/wp-content/uploads/2026/08/armaf-odyssey-nexus-opiniones-300x300.webp" },
-            { id: "100496", name: "Nitro White Intensely", price: 39.5, category: "Dumont", image: "https://perfumeriakanam.com/wp-content/uploads/2026/07/s-l1200-1-300x300.png" },
-            { id: "100495", name: "Queen of Roses", price: 38.5, category: "Lattafa", image: "https://perfumeriakanam.com/wp-content/uploads/2026/07/images-76-240x300.jpeg" },
-            { id: "100494", name: "Raneen", price: 22.5, category: "Lataffa", image: "https://perfumeriakanam.com/wp-content/uploads/2026/07/4_95816c5f-d539-4d5b-b46a-ce3c5df7f4f8-300x300.jpeg" },
-            { id: "100493", name: "London The City of Contrast", price: 24.5, category: "Lattafa", image: "https://perfumeriakanam.com/wp-content/uploads/2026/07/London-The-City-of-Contrast-100-ML-3.4-oz-EDP-by-Lattafa-3-1080x1080_resultado-300x300.jpeg" },
-            { id: "100492", name: "New York the City of Dreams", price: 24.5, category: "Lattafa", image: "https://perfumeriakanam.com/wp-content/uploads/2026/07/51KiikZD9gL-300x300.jpg" },
-            { id: "100491", name: "Love in Paris", price: 24.5, category: "Lattafa", image: "https://perfumeriakanam.com/wp-content/uploads/2026/07/lattafa-pride-love-in-paris-edp-100ml-231x300.jpg" },
-            { id: "100490", name: "Hawas Reina", price: 35.95, category: "Rasasi", image: "https://perfumeriakanam.com/wp-content/uploads/2026/07/rasasi-hawas-reina-opiniones-300x300.jpg" },
-            { id: "100489", name: "Rey de Reyes", price: 45.5, category: "Bharara", image: "https://perfumeriakanam.com/wp-content/uploads/2026/07/Picsart_26-07-29_23-42-47-649-300x300.jpg" },
-            { id: "100488", name: "Club De Nuit Intense Overdose", price: 39.95, category: "Armaf", image: "https://perfumeriakanam.com/wp-content/uploads/2026/07/Square_1024x-300x300.jpeg" },
-            { id: "100487", name: "Hawas Pink", price: 31.5, category: "Rasasi", image: "https://perfumeriakanam.com/wp-content/uploads/2026/07/images-69-225x300.jpeg" },
-            { id: "100486", name: "Jamra Blanc", price: 17.0, category: "Zakat", image: "https://perfumeriakanam.com/wp-content/uploads/2026/07/images-68-224x300.jpeg" },
-            { id: "100485", name: "Rome Melancholia", price: 25.5, category: "Mast Perfume", image: "https://perfumeriakanam.com/wp-content/uploads/2026/07/MastPerfumeRomeMelancholiapourfemmeEDP3.4oz-300x300.jpg" },
-            { id: "100484", name: "Jean Lowe Azure", price: 23.5, category: "Maison Alhambra", image: "https://perfumeriakanam.com/wp-content/uploads/2026/07/D_NQ_NP_987139-MLV106838959382_022026-O-300x300.webp" },
-            { id: "100483", name: "Dubai Nights Umbra", price: 28.5, category: "Armaf", image: "https://perfumeriakanam.com/wp-content/uploads/2026/07/DubaiNightsUmbra3_1200x1200-300x300.png" },
-            { id: "100482", name: "Fragaby II", price: 22.5, category: "Risala Elite", image: "https://perfumeriakanam.com/wp-content/uploads/2026/07/Gemini_Generated_Image_zi9lazzi9lazzi9l-300x300.png" },
-            { id: "100481", name: "World Cup Vip Blue Edition(LIMITED EDITION)", price: 38.75, category: "Zakat", image: "https://perfumeriakanam.com/wp-content/uploads/2026/07/IMG-20260707-WA0215-540x540.jpg" },
-            { id: "100480", name: "Kiaana Vibes", price: 33.75, category: "Afnan", image: "https://perfumeriakanam.com/wp-content/uploads/2026/07/D4E77A3E-EE5C-494B-B12A-254BF9AA5385_590x767-300x300.jpeg" },
-            { id: "100479", name: "Island Dreams", price: 29.95, category: "Khadlaj", image: "https://perfumeriakanam.com/wp-content/uploads/2026/06/Bestseller_Island_Dreams-300x300.jpg" },
-            { id: "100478", name: "Rayhaan Elixir", price: 28.5, category: "Rayhaan", image: "https://perfumeriakanam.com/wp-content/uploads/2026/06/images-64-300x300.jpeg" },
-            { id: "100477", name: "Eter Arabian Sky", price: 37.75, category: "ARMAF", image: "https://perfumeriakanam.com/wp-content/uploads/2026/06/71TyYwzepPL._AC_UF350350_QL80_-300x300.jpg" },
-            { id: "100476", name: "Dubai Nights Midnight", price: 29.5, category: "Armaf", image: "https://perfumeriakanam.com/wp-content/uploads/2026/06/descarga-12.jpg" },
-            { id: "100475", name: "Odyssey Li'chi Lush", price: 33.95, category: "Armaf", image: "https://perfumeriakanam.com/wp-content/uploads/2026/06/descarga-7.jpg" },
-            { id: "100474", name: "Odyssey Pink Pop", price: 33.95, category: "Armaf", image: "https://perfumeriakanam.com/wp-content/uploads/2026/06/descarga.jpg" },
-            { id: "100473", name: "Tamima", price: 14.5, category: "Lattafa Perfumes", image: "https://perfumeriakanam.com/wp-content/uploads/2026/06/Untitled_design_18_083a7d26-3af2-458a-9b10-73b42eab2c10-300x300.jpg" },
-            { id: "100472", name: "Odyssey Mandarin Sky Vintage Edition", price: 29.5, category: "Armaf", image: "https://perfumeriakanam.com/wp-content/uploads/2026/06/images-60-244x300.jpeg" },
-            { id: "100471", name: "Liquid Brun Limited Edition", price: 41.95, category: "French Avenue", image: "https://perfumeriakanam.com/wp-content/uploads/2026/05/liquid-brun-limited-edition-perfume-notes-vanilla-cinnamon-orange_jpg-540x540.jpg" },
-            { id: "100470", name: "Khamrah Waha", price: 39.75, category: "Lattafa", image: "https://perfumeriakanam.com/wp-content/uploads/2026/05/Lattafa_KHAMRAH_WAHA-300x300.png" },
-            { id: "100469", name: "Dallah Turkish", price: 26.0, category: "by Le Chameau", image: "https://perfumeriakanam.com/wp-content/uploads/2026/05/Dallah_Turkish.jpg" },
-            { id: "100468", name: "Dallah Cuba for Men", price: 26.0, category: "Le Chameau", image: "https://perfumeriakanam.com/wp-content/uploads/2026/05/dallah-cuba-2-540x540.webp" },
-            { id: "100467", name: "Countryside Meadows for Men", price: 16.5, category: "Le Chameau", image: "https://perfumeriakanam.com/wp-content/uploads/2026/05/Picsart_26-05-05_11-51-32-304-540x540.png" },
-            { id: "100466", name: "Countryside Boulevard for Men", price: 16.5, category: "Le Chameau", image: "https://perfumeriakanam.com/wp-content/uploads/2026/05/s-l1600-1-300x300.webp" },
-            { id: "100465", name: "1 And Only Winner", price: 16.6, category: "Le Chameau", image: "https://perfumeriakanam.com/wp-content/uploads/2026/05/1-and-FOTO-300x300.jpg" },
-            { id: "100464", name: "Freeze", price: 36.5, category: "Riiffs", image: "https://perfumeriakanam.com/wp-content/uploads/2026/05/710342D2-82E8-4B87-AE23-B6E78158D4DF_870x1131-300x300.webp" },
-            { id: "100463", name: "Raheeq for Women", price: 22.0, category: "Nusuk", image: "https://perfumeriakanam.com/wp-content/uploads/2026/05/6148ECCC-2563-4582-8270-3874575B6637_870x1131-300x300.webp" },
-            { id: "100462", name: "Fareed", price: 24.5, category: "Riiffs", image: "https://perfumeriakanam.com/wp-content/uploads/2026/05/A6E9D6FC-F441-40A5-AD0A-B62773F9287F_870x1131-300x300.webp" },
-            { id: "100461", name: "Falak", price: 28.75, category: "Nusuk", image: "https://perfumeriakanam.com/wp-content/uploads/2026/05/971D6F81-E5D6-4181-9B7B-79D5855D4452_590x767-540x540.webp" },
-            { id: "100460", name: "Taif for Women", price: 25.5, category: "Riiffs", image: "https://perfumeriakanam.com/wp-content/uploads/2026/05/157271BD-0AC7-4312-9155-EDE4ED6BCF16_870x1131-300x300.webp" },
-            { id: "100459", name: "Vanilla Voyage", price: 26.75, category: "MAISON ASRAR", image: "https://perfumeriakanam.com/wp-content/uploads/2026/05/A8C786A9-F910-420F-9D8E-000C5E7D4AAA_870x1131-300x300.webp" },
-            { id: "100458", name: "Mahab for Women", price: 19.95, category: "Nusuk", image: "https://perfumeriakanam.com/wp-content/uploads/2026/05/77DE06BD-2C7D-49D6-B79B-0D8A601C71C3_870x1131-300x300.webp" },
-            { id: "100457", name: "Rome Extradose for Men", price: 26.5, category: "Bharara", image: "https://perfumeriakanam.com/wp-content/uploads/2026/05/bharara-mast-perfume-rome-extradose-pour-homme-oud-miraj-300x300.jpeg" },
-            { id: "100456", name: "Ateeq", price: 24.75, category: "Nusuk", image: "https://perfumeriakanam.com/wp-content/uploads/2026/05/nusuk-ateeq-perfume-tobacco-honey-notes-lifestyle_jpg-240x300.jpg" },
-            { id: "100455", name: "Nitro Gold", price: 38.0, category: "Dumont", image: "https://perfumeriakanam.com/wp-content/uploads/2026/04/Gemini_Generated_Image_kyol15kyol15kyol-300x300.png" },
-            { id: "100454", name: "Second Song", price: 32.5, category: "Lattafa", image: "https://perfumeriakanam.com/wp-content/uploads/2026/04/images-44-300x300.jpeg" },
-            { id: "100448", name: "Nitro Red Intensely", price: 35.5, category: "Dumont", image: "https://perfumeriakanam.com/wp-content/uploads/2026/05/1_9f174c47-916e-4c1d-96db-505b6f27784e-300x300.jpeg" },
-            { id: "100447", name: "Nitro Elixir Men 3.4oz", price: 35.5, category: "Dumont", image: "https://perfumeriakanam.com/wp-content/uploads/2026/04/s-l400-300x287.jpg" },
-            { id: "100446", name: "Pinkling for Woman", price: 22.5, category: "PARIS CORNER", image: "https://perfumeriakanam.com/wp-content/uploads/2026/02/PINKLING03-540x540.webp" },
-            { id: "100445", name: "Khair Confection for Woman", price: 19.0, category: "PARIS CORNER", image: "https://perfumeriakanam.com/wp-content/uploads/2026/02/khair_confection_vanilla_perfume-540x540.webp" },
-            { id: "100444", name: "Plum Liquor for Woman", price: 21.5, category: "PARIS CORNER", image: "https://perfumeriakanam.com/wp-content/uploads/2026/02/plum-liquor-01-scaled-600x777-1-540x540.jpg" },
-            { id: "100443", name: "Sweet Heaven Ice for Men", price: 19.0, category: "Gulf Orchid", image: "https://perfumeriakanam.com/wp-content/uploads/2026/02/sweet-heaven-ice-540x540.jpg" },
-            { id: "100442", name: "Oravéa for Woman", price: 23.5, category: "Paris Corner", image: "https://perfumeriakanam.com/wp-content/uploads/2026/02/oravea_pc-300x300.webp" },
-            { id: "100441", name: "Cherry Gossip for Woman", price: 22.95, category: "Paris Corner", image: "https://perfumeriakanam.com/wp-content/uploads/2026/02/cherry-gossip-2-300x300.jpg" },
-            { id: "100440", name: "Dulzura for Women", price: 21.0, category: "Paris Corner", image: "https://perfumeriakanam.com/wp-content/uploads/2026/02/61aSvx3sMJL._SL1200_-300x300.jpg" },
-            { id: "100439", name: "Marshmallow Blush for Women 50 ML", price: 17.0, category: "Paris Corner", image: "https://perfumeriakanam.com/wp-content/uploads/2026/02/paris-corner-marshmallow-blush-edp-100ml-231x300.webp" },
-            { id: "100438", name: "Marshmallow Blush for Women 100 ML", price: 25.5, category: "Paris Corner", image: "https://perfumeriakanam.com/wp-content/uploads/2026/02/paris-corner-marshmallow-blush-edp-100ml-231x300.webp" },
-            { id: "100437", name: "Gift Set Club de Nuit Woman", price: 38.0, category: "by Armaf", image: "https://perfumeriakanam.com/wp-content/uploads/2026/02/1D1B284C-573B-47F1-8490-9928387FDD20-300x300.png" },
-            { id: "100436", name: "Luna for Women", price: 22.95, category: "Armaf", image: "https://perfumeriakanam.com/wp-content/uploads/2026/02/s-l225.jpg" },
-            { id: "100435", name: "Dunescape Dubai", price: 26.95, category: "Armaf", image: "https://perfumeriakanam.com/wp-content/uploads/2026/02/38DEB1E4-FF30-48A0-A3C2-A086BBD8FAD5_870x1131@2x-203x300.jpg" },
-            { id: "100434", name: "Hawas Tropical", price: 28.0, category: "Rasasi", image: "https://perfumeriakanam.com/wp-content/uploads/2026/02/34C8D211-E81B-48F2-9A82-56994C20B838_590x767-1-300x300.jpg" },
-            { id: "100433", name: "Hawas Atlantis", price: 33.95, category: "Rasasi", image: "https://perfumeriakanam.com/wp-content/uploads/2026/02/A76A92A8-FF1C-466C-98C4-D60961D5AF16_590x767-540x540.jpg" },
-            { id: "100432", name: "9 PM Night Out", price: 38.0, category: "Afnan", image: "https://perfumeriakanam.com/wp-content/uploads/2026/01/o.144524-300x300.jpg" },
-            { id: "100431", name: "Vanilla Aura", price: 24.0, category: "MAISON ASRAR", image: "https://perfumeriakanam.com/wp-content/uploads/2026/01/vanilla_aura_perfume_scent-300x300.jpg" },
-            { id: "100430", name: "Marwa", price: 38.0, category: "Arabiyat Prestige", image: "https://perfumeriakanam.com/wp-content/uploads/2026/01/images.jpg" },
-            { id: "100429", name: "Vanilla Seduction", price: 28.5, category: "Maison Aarar", image: "https://perfumeriakanam.com/wp-content/uploads/2026/01/4605479F-A27D-4290-BBB0-2AA4FC737F7D_590x767-300x300.jpeg" },
-            { id: "100428", name: "Santorini", price: 34.5, category: "Martin Martin", image: "https://perfumeriakanam.com/wp-content/uploads/2026/01/6329CBB5-27BE-4DE3-A963-B614FB9437F9_590x767-300x300.jpeg" },
-            { id: "100427", name: "Saher for Women", price: 27.5, category: "Nusuk", image: "https://perfumeriakanam.com/wp-content/uploads/2026/01/068A8D1E-3FCE-48C5-B900-F710F9F1CB79_590x767-300x300.jpeg" },
-            { id: "100426", name: "Hawas for Her", price: 23.5, category: "Rasasi", image: "https://perfumeriakanam.com/wp-content/uploads/2026/01/Hawas-for-Her-Aromatica-CR-453878220-300x300.jpg" },
-            { id: "100425", name: "Mystique Bouquet for Women", price: 27.5, category: "Afnan", image: "https://perfumeriakanam.com/wp-content/uploads/2026/01/61hrXO3klbL._AC_UF10001000_QL80_FMwebp_-300x300.webp" },
-            { id: "100001", name: "Orientica Oud Safron 80ml", price: 59.0, category: "Orientica", image: "https://perfumeriakanam.com/wp-content/uploads/2024/04/419.png" }
+            { id: "100525", name: "Club de Nuit Intenso Fuego", price: 45.5, category: "Armaf", image: "https://perfumeriakanam.com/wp-content/uploads/2026/10/images-27-242x300.jpeg" }
         ];
 
-        /* ESTADO GLOBAL */
         let products = [];
         let cart = {};
 
         function initApp() {
-            // Leer desde localStorage o tomar el listado base
-            const stored = localStorage.getItem('kanam_products_v2');
-            if (stored) {
-                try {
+            try {
+                const stored = localStorage.getItem('kanam_products_v3');
+                if (stored) {
                     products = JSON.parse(stored);
-                } catch(e) {
+                } else {
                     products = [...defaultProducts];
                 }
-            } else {
+            } catch(e) {
                 products = [...defaultProducts];
             }
 
@@ -301,6 +197,7 @@
 
         function initCategories() {
             const select = document.getElementById('category-select');
+            if(!select) return;
             select.innerHTML = '<option value="">Todas las Marcas</option>';
             const categories = [...new Set(products.map(p => p.category))].filter(Boolean);
             categories.sort().forEach(cat => {
@@ -313,6 +210,7 @@
 
         function renderProducts(items) {
             const grid = document.getElementById('product-grid');
+            if(!grid) return;
             grid.innerHTML = '';
 
             if(!items || items.length === 0) {
@@ -328,7 +226,7 @@
                 card.innerHTML = `
                     <div>
                         <div class="h-28 sm:h-40 bg-gray-50 overflow-hidden flex items-center justify-center p-1.5">
-                            <img src="${product.image}" alt="${product.name}" class="h-full object-contain" onerror="this.src='https://via.placeholder.com/300?text=Perfumeria+Kanam'">
+                            <img src="${product.image}" alt="${product.name}" loading="lazy" class="h-full object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/300?text=Kanam';">
                         </div>
                         <div class="p-2 sm:p-3">
                             <span class="text-[9px] sm:text-xs font-bold text-emerald-600 uppercase tracking-wider">${product.category}</span>
@@ -355,8 +253,8 @@
         }
 
         function filterProducts() {
-            const query = document.getElementById('search-input').value.toLowerCase();
-            const category = document.getElementById('category-select').value;
+            const query = (document.getElementById('search-input')?.value || '').toLowerCase();
+            const category = document.getElementById('category-select')?.value || '';
 
             const filtered = products.filter(p => {
                 const matchesQuery = p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query);
@@ -386,6 +284,7 @@
             const container = document.getElementById('cart-items');
             const badge = document.getElementById('cart-badge');
             const totalEl = document.getElementById('cart-total');
+            if(!container) return;
             
             container.innerHTML = '';
             let totalItems = 0;
@@ -394,8 +293,8 @@
             const ids = Object.keys(cart);
             if (ids.length === 0) {
                 container.innerHTML = `<p class="text-center text-gray-400 py-12 text-sm">El carrito está vacío</p>`;
-                badge.textContent = '0';
-                totalEl.textContent = '$0.00';
+                if(badge) badge.textContent = '0';
+                if(totalEl) totalEl.textContent = '$0.00';
                 return;
             }
 
@@ -408,7 +307,7 @@
                 div.className = "flex items-center justify-between border-b pb-2.5";
                 div.innerHTML = `
                     <div class="flex items-center space-x-2.5">
-                        <img src="${item.image}" class="w-10 h-10 object-contain bg-gray-50 rounded" onerror="this.src='https://via.placeholder.com/300?text=Kanam'">
+                        <img src="${item.image}" class="w-10 h-10 object-contain bg-gray-50 rounded" onerror="this.onerror=null; this.src='https://via.placeholder.com/300?text=Kanam';">
                         <div>
                             <h4 class="font-bold text-xs line-clamp-1">${item.name}</h4>
                             <p class="text-[11px] text-gray-500">$${item.price.toFixed(2)} x ${item.quantity}</p>
@@ -422,15 +321,14 @@
                 container.appendChild(div);
             });
 
-            badge.textContent = totalItems;
-            totalEl.textContent = `$${totalPrice.toFixed(2)}`;
+            if(badge) badge.textContent = totalItems;
+            if(totalEl) totalEl.textContent = `$${totalPrice.toFixed(2)}`;
         }
 
         function toggleCart() {
             document.getElementById('cart-modal').classList.toggle('hidden');
         }
 
-        /* ENVÍO DE PEDIDOS */
         function sendWhatsAppOrder() {
             const ids = Object.keys(cart);
             if (ids.length === 0) {
@@ -478,7 +376,6 @@
             window.location.href = mailtoUrl;
         }
 
-        /* LÓGICA DE ADMINISTRADOR PANTALLA COMPLETA */
         function openAdminModal() {
             document.getElementById('admin-modal').classList.remove('hidden');
         }
@@ -501,7 +398,7 @@
         function renderAdminList() {
             const list = document.getElementById('admin-product-list');
             const countEl = document.getElementById('admin-total-count');
-            const searchVal = document.getElementById('admin-search-input').value.toLowerCase();
+            const searchVal = (document.getElementById('admin-search-input')?.value || '').toLowerCase();
             
             if (!list) return;
             list.innerHTML = '';
@@ -519,7 +416,7 @@
                 item.className = "flex flex-col sm:flex-row items-center justify-between p-2.5 bg-gray-50 rounded-xl border border-gray-200 gap-2";
                 item.innerHTML = `
                     <div class="flex items-center space-x-2.5 w-full sm:w-auto">
-                        <img src="${prod.image}" class="w-10 h-10 object-contain bg-white rounded border p-0.5" onerror="this.src='https://via.placeholder.com/300?text=Kanam'">
+                        <img src="${prod.image}" class="w-10 h-10 object-contain bg-white rounded border p-0.5" onerror="this.onerror=null; this.src='https://via.placeholder.com/300?text=Kanam';">
                         <div>
                             <p class="font-bold text-xs text-gray-800 line-clamp-1">${prod.name}</p>
                             <span class="text-[10px] text-emerald-600 font-semibold">${prod.category}</span>
@@ -599,12 +496,12 @@
         }
 
         function saveProductsState() {
-            localStorage.setItem('kanam_products_v2', JSON.stringify(products));
+            localStorage.setItem('kanam_products_v3', JSON.stringify(products));
         }
 
         function resetToDefaults() {
             if (confirm("¿Deseas restablecer el inventario al catálogo inicial por defecto?")) {
-                localStorage.removeItem('kanam_products_v2');
+                localStorage.removeItem('kanam_products_v3');
                 products = [...defaultProducts];
                 initCategories();
                 filterProducts();
@@ -613,8 +510,12 @@
             }
         }
 
-        // Inicializar cuando el DOM esté listo
-        document.addEventListener('DOMContentLoaded', initApp);
+        // Ejecución inmediata garantizada
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
     </script>
 </body>
 </html>
